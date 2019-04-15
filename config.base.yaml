@@ -29,6 +29,7 @@ alerts:
   emailalert:
     plugin: cloudmarker.alerts.emailalert.EmailAlert
     params:
+      is_ssl_required: True
       host: smtp.example.com
       port: 25
       sender: CloudMarker Alert <no-reply@example.com>
@@ -36,6 +37,8 @@ alerts:
         - recipient@example.com
       subject: Anomaly notification
       body: default text
+      username: alice
+      password: alice@123
 
 audits:
   mockaudit:
