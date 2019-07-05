@@ -1,8 +1,13 @@
 """Microsoft web app minimum TLS version event.
 
 This module defines the :class:`AzWebAppTLSEvent` class that identifies
+<<<<<<< HEAD
 a web app with minimum TLS version not equal to the required minimum TLS
 version. This plugin works on the web apps config properties found in the
+=======
+a web app with minimum TLS version not equal to the latest version
+(1.2). This plugin works on the web apps config properties found in the
+>>>>>>> Add AzWebApp and AzWebAppTLSEvent plugins
 ``com`` bucket of ``web_app`` records.
 """
 
@@ -64,13 +69,13 @@ def _get_azure_web_app_tls_event(com, ext, min_tls_version):
     """Evaluate Azure web app config for insecure min TLS version.
 
     Arguments:
-        com (dict): Azure web app record `com` bucket
-        ext (dict): Azure web app record `ext` bucket
-        min_tls_version (float): Minimum required TLS version
+        com (dict): Azure web app record `com` bucket.
+        ext (dict): Azure web app record `ext` bucket.
+        min_tls_version (float): Minimum required TLS version.
 
     Returns:
         dict: An event record representing web apps not using a minimum
-        TLS version
+        TLS version.
 
     """
     friendly_cloud_type = util.friendly_string(com.get('cloud_type'))
