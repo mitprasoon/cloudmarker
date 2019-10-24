@@ -59,14 +59,17 @@ plugins:
   azlogprofileretentionevent:
     plugin: cloudmarker.events.azlogprofileretentionevent.AzLogProfileRetentionEvent
 
-  azkeyvaultsecretnoexpiryevent:
+  azkvsecretnoexpiryevent:
     plugin: cloudmarker.events.azkvsecretnoexpiryevent.AzKVSecretNoExpiryEvent
 
-  azkeyvaultkeynoexpiryevent:
+  azkvkeynoexpiryevent:
     plugin: cloudmarker.events.azkvkeynoexpiryevent.AzKVKeyNoExpiryEvent
 
   azkvnonrecoverableevent:
     plugin: cloudmarker.events.azkvnonrecoverableevent.AzKVNonRecoverableEvent
+
+  azlogprofilemissinglocationevent:
+    plugin: arachnoid.events.azlogprofilemissinglocationevent.AzLogProfileMissingLocationEvent
 
   mockevent:
     plugin: cloudmarker.events.mockevent.MockEvent
