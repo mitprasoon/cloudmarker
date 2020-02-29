@@ -181,18 +181,25 @@ class AzSQL:
                                                             server_name,
                                                             sql_db_name)
             tde_config = tde_config.as_dict()
+            ad_admins = \
+                sql_client.server_azure_ad_administrators.list_by_server(
+                                                            rg_name,
+                                                            server_name,
+                                                            sql_db_name)
+            ad_admins = self._get_ad_admins(ad_admins)
             _log.info('Found sql_db #%d: %s; SQL server #%d: %s; %s',
                       db_index, sql_db_name, server_index, server_name,
                       util.outline_az_sub(sub_index, sub, self._tenant))
             yield from self._process_sql_db_details(sub, db,
-                                                    tde_config)
+                                                    tde_config,
+                                                    ad_admin)
 
     def done(self):
         """Log a message that this plugin is done."""
         _log.info('Done; tenant: %s; processes: %s; threads: %s',
                   self._tenant, self._processes, self._threads)
 
-    def _process_sql_db_details(self, sub, db, tde_config):
+    def _process_sql_db_details(self, sub, db, tde_config, ad_admins):
         """Process SQL database record and yield them.
 
         Arguments:
@@ -204,6 +211,7 @@ class AzSQL:
 
         """
         db['transparent_data_encryption'] = tde_config
+        db['ad_admins'] = ad_admins
         record = {
             'raw': db,
             'ext': {
@@ -225,6 +233,22 @@ class AzSQL:
             )
         yield record
 
+    def _get_ad_admins(self, ad_admin_list):
+        """Iterate over list of Postgres servers and normalize them.
+
+        Arguments:
+            server_configuration_list (iterator): An iterator instance of
+                                                  Postgres server configuration
+
+        Returns:
+            list: A list of Postgres server configurations.
+            dict: A dictionary of Postgres server derived configurations.
+
+        """
+        ad_admins = []
+        for i, ad_admin in enumerate(ad_admin_list):
+            _log.error(i)
+        return ad_admins
 
 def _get_normalized_tde_config(tde_config):
     """Normalize the TDE configuration of a SQL database.
@@ -243,3 +267,4 @@ def _get_normalized_tde_config(tde_config):
         tde_enabled = True
     tde_info['tde_enabled'] = tde_enabled
     return tde_info
+
